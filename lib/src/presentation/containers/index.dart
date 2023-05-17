@@ -7,5 +7,8 @@ import '../../models/index.dart';
 
 part 'user_container.dart';
 part 'pending_container.dart';
+part 'categories_container.dart';
+part 'products_container.dart';
+part 'selected_category_container.dart';
 part '../login_page.dart';
 part '../create_user_page.dart';

@@ -11,19 +11,82 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return UserContainer(
       builder: (BuildContext context, AppUser? user) {
-        return Scaffold(
-          appBar: AppBar(
-            actions: <Widget>[
-              IconButton(
-                  onPressed: () {
-                    StoreProvider.of<AppState>(context).dispatch(const LogOutUser());
-                    Navigator.pushReplacementNamed(context, '/login');
-                  }, 
-                  icon: const Icon(Icons.power_settings_new)
-              )
-            ],
-          ),
-          body: Center(child: Text(user!.displayName)),
+        return CategoriesContainer(
+          builder: (BuildContext context, List<Category> categories) {
+            return Scaffold(
+              appBar: AppBar(
+                actions: <Widget>[
+                  IconButton(
+                      onPressed: () {
+                        StoreProvider.of<AppState>(context).dispatch(const LogOutUser());
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      icon: const Icon(Icons.power_settings_new)
+                  )
+                ],
+                bottom: categories.isEmpty
+                    ? null
+                    : PreferredSize(
+                  preferredSize: const Size.fromHeight(56.0),
+                  child: SizedBox(
+                    height: 56,
+                    child: SelectedCategory(
+                      builder: (BuildContext context, Category selectedCategory) {
+                        return ListView(
+                          scrollDirection:  Axis.horizontal,
+                          children: categories.map((Category category) {
+                            return ChoiceChip(
+                              label: Text(category.title),
+                              selected: selectedCategory.id == category.id,
+                              onSelected: (bool selected) {
+                                if (selected) {
+                                  StoreProvider.of<AppState>(context)
+                                    ..dispatch(SetCategory(category.id))
+                                    ..dispatch(ListProducts.start(category.id));
+                                }
+                              },
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              body: PendingContainer(
+                builder: (BuildContext context, Set<String> pending) {
+                  if (pending.contains(ListProducts.pendingKey)){
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  return ProductsContainer(
+                    builder: (BuildContext context, List<Product> products) {
+                      return ListView.separated(
+                        itemCount: products.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final Product product = products[index];
+                          return ListTile(
+                            leading: Image.network(
+                              product.image,
+                              fit: BoxFit.cover,
+                              width: 56.0,
+                              height: 56.0,
+                            ),
+                            title: Text('${product.title} / ${product.vendorId}'),
+                            subtitle: Text(product.description),
+                          );
+                          }, separatorBuilder: (BuildContext context, int index) {
+                          return const Divider();
+                      },
+                      );
+                      },
+                  );
+                  },
+              ),
+            );
+          },
         );
       },
     );

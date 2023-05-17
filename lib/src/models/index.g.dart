@@ -36,6 +36,9 @@ _$AppState$ _$$AppState$FromJson(Map<String, dynamic> json) => _$AppState$(
       auth: json['auth'] == null
           ? const AuthState()
           : AuthState.fromJson(json['auth'] as Map<String, dynamic>),
+      products: json['products'] == null
+          ? const ProductsState()
+          : ProductsState.fromJson(json['products'] as Map<String, dynamic>),
       pendingActions: (json['pendingActions'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toSet() ??
@@ -45,14 +48,34 @@ _$AppState$ _$$AppState$FromJson(Map<String, dynamic> json) => _$AppState$(
 Map<String, dynamic> _$$AppState$ToJson(_$AppState$ instance) =>
     <String, dynamic>{
       'auth': instance.auth,
+      'products': instance.products,
       'pendingActions': instance.pendingActions.toList(),
     };
 
-_$ProductState$ _$$ProductState$FromJson(Map<String, dynamic> json) =>
-    _$ProductState$();
+_$ProductsState$ _$$ProductsState$FromJson(Map<String, dynamic> json) =>
+    _$ProductsState$(
+      products: (json['products'] as List<dynamic>?)
+              ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <Product>[],
+      vendors: (json['vendors'] as List<dynamic>?)
+              ?.map((e) => Vendor.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <Vendor>[],
+      categories: (json['categories'] as List<dynamic>?)
+              ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <Category>[],
+      selectedCategoryId: json['selectedCategoryId'] as String?,
+    );
 
-Map<String, dynamic> _$$ProductState$ToJson(_$ProductState$ instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$$ProductsState$ToJson(_$ProductsState$ instance) =>
+    <String, dynamic>{
+      'products': instance.products,
+      'vendors': instance.vendors,
+      'categories': instance.categories,
+      'selectedCategoryId': instance.selectedCategoryId,
+    };
 
 _$Product$ _$$Product$FromJson(Map<String, dynamic> json) => _$Product$(
       id: json['id'] as String,
@@ -78,10 +101,7 @@ Map<String, dynamic> _$$Product$ToJson(_$Product$ instance) =>
 _$Category$ _$$Category$FromJson(Map<String, dynamic> json) => _$Category$(
       id: json['id'] as String,
       title: json['title'] as String,
-      icon: json['icon'] as String,
-      products: (json['products'] as List<dynamic>)
-          .map((e) => Product.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      icon: json['icon'] as int,
     );
 
 Map<String, dynamic> _$$Category$ToJson(_$Category$ instance) =>
@@ -89,7 +109,6 @@ Map<String, dynamic> _$$Category$ToJson(_$Category$ instance) =>
       'id': instance.id,
       'title': instance.title,
       'icon': instance.icon,
-      'products': instance.products,
     };
 
 _$Vendor$ _$$Vendor$FromJson(Map<String, dynamic> json) => _$Vendor$(

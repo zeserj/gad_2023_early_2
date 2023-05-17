@@ -362,6 +362,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppState {
   AuthState get auth => throw _privateConstructorUsedError;
+  ProductsState get products => throw _privateConstructorUsedError;
   Set<String> get pendingActions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -375,9 +376,11 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
   @useResult
-  $Res call({AuthState auth, Set<String> pendingActions});
+  $Res call(
+      {AuthState auth, ProductsState products, Set<String> pendingActions});
 
   $AuthStateCopyWith<$Res> get auth;
+  $ProductsStateCopyWith<$Res> get products;
 }
 
 /// @nodoc
@@ -394,6 +397,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   @override
   $Res call({
     Object? auth = null,
+    Object? products = null,
     Object? pendingActions = null,
   }) {
     return _then(_value.copyWith(
@@ -401,6 +405,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
               as AuthState,
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as ProductsState,
       pendingActions: null == pendingActions
           ? _value.pendingActions
           : pendingActions // ignore: cast_nullable_to_non_nullable
@@ -415,6 +423,14 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
       return _then(_value.copyWith(auth: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductsStateCopyWith<$Res> get products {
+    return $ProductsStateCopyWith<$Res>(_value.products, (value) {
+      return _then(_value.copyWith(products: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -424,10 +440,13 @@ abstract class _$$AppState$CopyWith<$Res> implements $AppStateCopyWith<$Res> {
       __$$AppState$CopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthState auth, Set<String> pendingActions});
+  $Res call(
+      {AuthState auth, ProductsState products, Set<String> pendingActions});
 
   @override
   $AuthStateCopyWith<$Res> get auth;
+  @override
+  $ProductsStateCopyWith<$Res> get products;
 }
 
 /// @nodoc
@@ -442,6 +461,7 @@ class __$$AppState$CopyWithImpl<$Res>
   @override
   $Res call({
     Object? auth = null,
+    Object? products = null,
     Object? pendingActions = null,
   }) {
     return _then(_$AppState$(
@@ -449,6 +469,10 @@ class __$$AppState$CopyWithImpl<$Res>
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
               as AuthState,
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as ProductsState,
       pendingActions: null == pendingActions
           ? _value._pendingActions
           : pendingActions // ignore: cast_nullable_to_non_nullable
@@ -462,6 +486,7 @@ class __$$AppState$CopyWithImpl<$Res>
 class _$AppState$ implements AppState$ {
   const _$AppState$(
       {this.auth = const AuthState(),
+      this.products = const ProductsState(),
       final Set<String> pendingActions = const <String>{}})
       : _pendingActions = pendingActions;
 
@@ -471,6 +496,9 @@ class _$AppState$ implements AppState$ {
   @override
   @JsonKey()
   final AuthState auth;
+  @override
+  @JsonKey()
+  final ProductsState products;
   final Set<String> _pendingActions;
   @override
   @JsonKey()
@@ -482,7 +510,7 @@ class _$AppState$ implements AppState$ {
 
   @override
   String toString() {
-    return 'AppState(auth: $auth, pendingActions: $pendingActions)';
+    return 'AppState(auth: $auth, products: $products, pendingActions: $pendingActions)';
   }
 
   @override
@@ -491,14 +519,16 @@ class _$AppState$ implements AppState$ {
         (other.runtimeType == runtimeType &&
             other is _$AppState$ &&
             (identical(other.auth, auth) || other.auth == auth) &&
+            (identical(other.products, products) ||
+                other.products == products) &&
             const DeepCollectionEquality()
                 .equals(other._pendingActions, _pendingActions));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, auth, const DeepCollectionEquality().hash(_pendingActions));
+  int get hashCode => Object.hash(runtimeType, auth, products,
+      const DeepCollectionEquality().hash(_pendingActions));
 
   @JsonKey(ignore: true)
   @override
@@ -516,12 +546,16 @@ class _$AppState$ implements AppState$ {
 
 abstract class AppState$ implements AppState {
   const factory AppState$(
-      {final AuthState auth, final Set<String> pendingActions}) = _$AppState$;
+      {final AuthState auth,
+      final ProductsState products,
+      final Set<String> pendingActions}) = _$AppState$;
 
   factory AppState$.fromJson(Map<String, dynamic> json) = _$AppState$.fromJson;
 
   @override
   AuthState get auth;
+  @override
+  ProductsState get products;
   @override
   Set<String> get pendingActions;
   @override
@@ -530,85 +564,235 @@ abstract class AppState$ implements AppState {
       throw _privateConstructorUsedError;
 }
 
-ProductState _$ProductStateFromJson(Map<String, dynamic> json) {
-  return ProductState$.fromJson(json);
+ProductsState _$ProductsStateFromJson(Map<String, dynamic> json) {
+  return ProductsState$.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProductState {
+mixin _$ProductsState {
+  List<Product> get products => throw _privateConstructorUsedError;
+  List<Vendor> get vendors => throw _privateConstructorUsedError;
+  List<Category> get categories => throw _privateConstructorUsedError;
+  String? get selectedCategoryId => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProductsStateCopyWith<ProductsState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProductStateCopyWith<$Res> {
-  factory $ProductStateCopyWith(
-          ProductState value, $Res Function(ProductState) then) =
-      _$ProductStateCopyWithImpl<$Res, ProductState>;
+abstract class $ProductsStateCopyWith<$Res> {
+  factory $ProductsStateCopyWith(
+          ProductsState value, $Res Function(ProductsState) then) =
+      _$ProductsStateCopyWithImpl<$Res, ProductsState>;
+  @useResult
+  $Res call(
+      {List<Product> products,
+      List<Vendor> vendors,
+      List<Category> categories,
+      String? selectedCategoryId});
 }
 
 /// @nodoc
-class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
-    implements $ProductStateCopyWith<$Res> {
-  _$ProductStateCopyWithImpl(this._value, this._then);
+class _$ProductsStateCopyWithImpl<$Res, $Val extends ProductsState>
+    implements $ProductsStateCopyWith<$Res> {
+  _$ProductsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? products = null,
+    Object? vendors = null,
+    Object? categories = null,
+    Object? selectedCategoryId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+      vendors: null == vendors
+          ? _value.vendors
+          : vendors // ignore: cast_nullable_to_non_nullable
+              as List<Vendor>,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
+      selectedCategoryId: freezed == selectedCategoryId
+          ? _value.selectedCategoryId
+          : selectedCategoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$ProductState$CopyWith<$Res> {
-  factory _$$ProductState$CopyWith(
-          _$ProductState$ value, $Res Function(_$ProductState$) then) =
-      __$$ProductState$CopyWithImpl<$Res>;
+abstract class _$$ProductsState$CopyWith<$Res>
+    implements $ProductsStateCopyWith<$Res> {
+  factory _$$ProductsState$CopyWith(
+          _$ProductsState$ value, $Res Function(_$ProductsState$) then) =
+      __$$ProductsState$CopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<Product> products,
+      List<Vendor> vendors,
+      List<Category> categories,
+      String? selectedCategoryId});
 }
 
 /// @nodoc
-class __$$ProductState$CopyWithImpl<$Res>
-    extends _$ProductStateCopyWithImpl<$Res, _$ProductState$>
-    implements _$$ProductState$CopyWith<$Res> {
-  __$$ProductState$CopyWithImpl(
-      _$ProductState$ _value, $Res Function(_$ProductState$) _then)
+class __$$ProductsState$CopyWithImpl<$Res>
+    extends _$ProductsStateCopyWithImpl<$Res, _$ProductsState$>
+    implements _$$ProductsState$CopyWith<$Res> {
+  __$$ProductsState$CopyWithImpl(
+      _$ProductsState$ _value, $Res Function(_$ProductsState$) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? products = null,
+    Object? vendors = null,
+    Object? categories = null,
+    Object? selectedCategoryId = freezed,
+  }) {
+    return _then(_$ProductsState$(
+      products: null == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
+      vendors: null == vendors
+          ? _value._vendors
+          : vendors // ignore: cast_nullable_to_non_nullable
+              as List<Vendor>,
+      categories: null == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<Category>,
+      selectedCategoryId: freezed == selectedCategoryId
+          ? _value.selectedCategoryId
+          : selectedCategoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ProductState$ implements ProductState$ {
-  const _$ProductState$();
+class _$ProductsState$ implements ProductsState$ {
+  const _$ProductsState$(
+      {final List<Product> products = const <Product>[],
+      final List<Vendor> vendors = const <Vendor>[],
+      final List<Category> categories = const <Category>[],
+      this.selectedCategoryId})
+      : _products = products,
+        _vendors = vendors,
+        _categories = categories;
 
-  factory _$ProductState$.fromJson(Map<String, dynamic> json) =>
-      _$$ProductState$FromJson(json);
+  factory _$ProductsState$.fromJson(Map<String, dynamic> json) =>
+      _$$ProductsState$FromJson(json);
+
+  final List<Product> _products;
+  @override
+  @JsonKey()
+  List<Product> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_products);
+  }
+
+  final List<Vendor> _vendors;
+  @override
+  @JsonKey()
+  List<Vendor> get vendors {
+    if (_vendors is EqualUnmodifiableListView) return _vendors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_vendors);
+  }
+
+  final List<Category> _categories;
+  @override
+  @JsonKey()
+  List<Category> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categories);
+  }
+
+  @override
+  final String? selectedCategoryId;
 
   @override
   String toString() {
-    return 'ProductState()';
+    return 'ProductsState(products: $products, vendors: $vendors, categories: $categories, selectedCategoryId: $selectedCategoryId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ProductState$);
+        (other.runtimeType == runtimeType &&
+            other is _$ProductsState$ &&
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality().equals(other._vendors, _vendors) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories) &&
+            (identical(other.selectedCategoryId, selectedCategoryId) ||
+                other.selectedCategoryId == selectedCategoryId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_vendors),
+      const DeepCollectionEquality().hash(_categories),
+      selectedCategoryId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProductsState$CopyWith<_$ProductsState$> get copyWith =>
+      __$$ProductsState$CopyWithImpl<_$ProductsState$>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProductState$ToJson(
+    return _$$ProductsState$ToJson(
       this,
     );
   }
 }
 
-abstract class ProductState$ implements ProductState {
-  const factory ProductState$() = _$ProductState$;
+abstract class ProductsState$ implements ProductsState {
+  const factory ProductsState$(
+      {final List<Product> products,
+      final List<Vendor> vendors,
+      final List<Category> categories,
+      final String? selectedCategoryId}) = _$ProductsState$;
 
-  factory ProductState$.fromJson(Map<String, dynamic> json) =
-      _$ProductState$.fromJson;
+  factory ProductsState$.fromJson(Map<String, dynamic> json) =
+      _$ProductsState$.fromJson;
+
+  @override
+  List<Product> get products;
+  @override
+  List<Vendor> get vendors;
+  @override
+  List<Category> get categories;
+  @override
+  String? get selectedCategoryId;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProductsState$CopyWith<_$ProductsState$> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Product _$ProductFromJson(Map<String, dynamic> json) {
@@ -878,8 +1062,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 mixin _$Category {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get icon => throw _privateConstructorUsedError;
-  List<Product> get products => throw _privateConstructorUsedError;
+  int get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -892,7 +1075,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({String id, String title, String icon, List<Product> products});
+  $Res call({String id, String title, int icon});
 }
 
 /// @nodoc
@@ -911,7 +1094,6 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? id = null,
     Object? title = null,
     Object? icon = null,
-    Object? products = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -925,11 +1107,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
-      products: null == products
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+              as int,
     ) as $Val);
   }
 }
@@ -941,7 +1119,7 @@ abstract class _$$Category$CopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$Category$CopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, String icon, List<Product> products});
+  $Res call({String id, String title, int icon});
 }
 
 /// @nodoc
@@ -958,7 +1136,6 @@ class __$$Category$CopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? icon = null,
-    Object? products = null,
   }) {
     return _then(_$Category$(
       id: null == id
@@ -972,24 +1149,16 @@ class __$$Category$CopyWithImpl<$Res>
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
-      products: null == products
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<Product>,
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$Category$ implements Category$ {
-  const _$Category$(
-      {required this.id,
-      required this.title,
-      required this.icon,
-      required final List<Product> products})
-      : _products = products;
+class _$Category$ extends Category$ {
+  const _$Category$({required this.id, required this.title, required this.icon})
+      : super._();
 
   factory _$Category$.fromJson(Map<String, dynamic> json) =>
       _$$Category$FromJson(json);
@@ -999,18 +1168,11 @@ class _$Category$ implements Category$ {
   @override
   final String title;
   @override
-  final String icon;
-  final List<Product> _products;
-  @override
-  List<Product> get products {
-    if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_products);
-  }
+  final int icon;
 
   @override
   String toString() {
-    return 'Category(id: $id, title: $title, icon: $icon, products: $products)';
+    return 'Category(id: $id, title: $title, icon: $icon)';
   }
 
   @override
@@ -1020,14 +1182,12 @@ class _$Category$ implements Category$ {
             other is _$Category$ &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.icon, icon) || other.icon == icon) &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            (identical(other.icon, icon) || other.icon == icon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, icon,
-      const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(runtimeType, id, title, icon);
 
   @JsonKey(ignore: true)
   @override
@@ -1043,12 +1203,12 @@ class _$Category$ implements Category$ {
   }
 }
 
-abstract class Category$ implements Category {
+abstract class Category$ extends Category {
   const factory Category$(
       {required final String id,
       required final String title,
-      required final String icon,
-      required final List<Product> products}) = _$Category$;
+      required final int icon}) = _$Category$;
+  const Category$._() : super._();
 
   factory Category$.fromJson(Map<String, dynamic> json) = _$Category$.fromJson;
 
@@ -1057,9 +1217,7 @@ abstract class Category$ implements Category {
   @override
   String get title;
   @override
-  String get icon;
-  @override
-  List<Product> get products;
+  int get icon;
   @override
   @JsonKey(ignore: true)
   _$$Category$CopyWith<_$Category$> get copyWith =>

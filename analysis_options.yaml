@@ -31,6 +31,8 @@ analyzer:
     # Ignore the freezed generated files
     - '**/*.freezed.dart'
     - '**/*.g.dart'
+    # Ignore the firebase options generated files
+    - '**/firebase_options.dart'
 
 linter:
   rules:

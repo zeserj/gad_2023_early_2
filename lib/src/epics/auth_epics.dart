@@ -24,7 +24,10 @@ class AuthEpics implements EpicClass<AppState> {
     return actions.flatMap((CreateUserStart action) {
       return Stream<void>.value(null)
           .asyncMap((_) => _api.createUser(email: action.email, password: action.password))
-          .map((AppUser user) => CreateUser.successful(user))
+          .expand((AppUser user) {
+            return <dynamic>[CreateUser.successful(user),
+            const ListCategory.start()];
+          })
           .onErrorReturnWith((Object error, StackTrace stackTrace) => CreateUser.error(error, stackTrace))
           .doOnData(action.result);
     });
@@ -34,7 +37,10 @@ class AuthEpics implements EpicClass<AppState> {
     return actions.flatMap((LoginUserStart action) {
       return Stream<void>.value(null)
           .asyncMap((_) => _api.loginUser(email: action.email, password: action.password))
-          .map((AppUser user) => LoginUser.successful(user))
+          .expand((AppUser user) {
+            return <dynamic>[LoginUser.successful(user),
+              const ListCategory.start()];
+          })
           .onErrorReturnWith((Object error, StackTrace stackTrace) => LoginUser.error(error, stackTrace))
           .doOnData(action.result);
     });
@@ -44,7 +50,10 @@ class AuthEpics implements EpicClass<AppState> {
     return actions.flatMap((CheckUserStart action) {
       return Stream<void>.value(null)
           .asyncMap((_) => _api.checkUser())
-          .map((AppUser? user) => CheckUser.successful(user))
+          .expand((AppUser? user) {
+            return <dynamic>[CheckUser.successful(user),
+              const ListCategory.start()];
+          })
           .onErrorReturnWith((Object error, StackTrace stackTrace) => CheckUser.error(error, stackTrace));
     });
   }
