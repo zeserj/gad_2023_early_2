@@ -1,4 +1,9 @@
-part of 'containers/index.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+import '../actions/index.dart';
+import '../models/index.dart';
+import 'containers/index.dart';
 
 class CreateUserPage extends StatefulWidget {
   const CreateUserPage({super.key});
@@ -31,8 +36,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
   void _onResult(dynamic action) {
     if (action is CreateUserSuccessful) {
       Navigator.pushReplacementNamed(context, '/');
-    }
-    else if (action is CreateUserError) {
+    } else if (action is CreateUserError) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('${action.error}'),
         duration: const Duration(seconds: 5),

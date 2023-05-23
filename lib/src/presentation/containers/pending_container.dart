@@ -8,8 +8,8 @@ class PendingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Set<String>>(
-        builder: builder,
-        converter: (Store<AppState> store) => store.state.pendingActions,
+      builder: builder,
+      converter: (Store<AppState> store) => store.state.pendingActions,
     );
   }
 }

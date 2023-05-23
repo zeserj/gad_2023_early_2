@@ -11,13 +11,14 @@ class ListCategory with _$ListCategory {
 
   @Implements<StopAction>()
   const factory ListCategory.successful(
-      List<Category> categories, [
-        @Default(_kListCategoryPendingId) String pendingId,
+    List<Category> categories, [
+    @Default(_kListCategoryPendingId) String pendingId,
   ]) = ListCategorySuccessful;
 
   @Implements<StopAction>()
   const factory ListCategory.error(
-    Object error, StackTrace stackTrace, [
+    Object error,
+    StackTrace stackTrace, [
     @Default(_kListCategoryPendingId) String pendingId,
   ]) = ListCategoryError;
 

@@ -15,20 +15,20 @@ class ProductsEpics implements EpicClass<AppState> {
     return combineEpics(<Epic<AppState>>[
       TypedEpic<AppState, ListCategoryStart>(_listCategoryStart).call,
       TypedEpic<AppState, ListProductsStart>(_listProductsStart).call,
+      TypedEpic<AppState, ListVendorsStart>(_listVendorsStart).call,
     ])(actions, store);
   }
 
   Stream<dynamic> _listCategoryStart(Stream<ListCategoryStart> actions, EpicStore<AppState> store) {
     return actions.flatMap((ListCategoryStart action) {
-      return Stream<void>.value(null)
-          .asyncMap((_) => _api.listCategory())
-          .expand((List<Category> categories) {
-            return <dynamic>[
-              ListCategory.successful(categories),
-              ListProducts.start(categories.first.id),
-            ];
-          })
-          .onErrorReturnWith((Object error, StackTrace stackTrace) => ListCategory.error(error, stackTrace));
+      return Stream<void>.value(null).asyncMap((_) => _api.listCategory()).expand((List<Category> categories) {
+        final List<Category> list = categories..sort();
+
+        return <dynamic>[
+          ListCategory.successful(list),
+          ListProducts.start(list.first.id),
+        ];
+      }).onErrorReturnWith((Object error, StackTrace stackTrace) => ListCategory.error(error, stackTrace));
     });
   }
 
@@ -36,10 +36,17 @@ class ProductsEpics implements EpicClass<AppState> {
     return actions.flatMap((ListProductsStart action) {
       return Stream<void>.value(null)
           .asyncMap((_) => _api.listProducts(action.categoryId))
-          .map((List<Product> products) {
-            return ListProducts.successful(products);
-          })
+          .map((List<Product> products) => ListProducts.successful(products))
           .onErrorReturnWith((Object error, StackTrace stackTrace) => ListProducts.error(error, stackTrace));
+    });
+  }
+
+  Stream<dynamic> _listVendorsStart(Stream<ListVendorsStart> actions, EpicStore<AppState> store) {
+    return actions.flatMap((ListVendorsStart action) {
+      return Stream<void>.value(null)
+          .asyncMap((_) => _api.listVendors())
+          .map((List<Vendor> vendors) => ListVendors.successful(vendors))
+          .onErrorReturnWith((Object error, StackTrace stackTrace) => ListVendors.error(error, stackTrace));
     });
   }
 }

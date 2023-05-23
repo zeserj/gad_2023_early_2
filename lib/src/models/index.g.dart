@@ -13,8 +13,7 @@ _$AppUser$ _$$AppUser$FromJson(Map<String, dynamic> json) => _$AppUser$(
       profileUrl: json['profileUrl'] as String?,
     );
 
-Map<String, dynamic> _$$AppUser$ToJson(_$AppUser$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$AppUser$ToJson(_$AppUser$ instance) => <String, dynamic>{
       'uid': instance.uid,
       'email': instance.email,
       'displayName': instance.displayName,
@@ -22,59 +21,70 @@ Map<String, dynamic> _$$AppUser$ToJson(_$AppUser$ instance) =>
     };
 
 _$AuthState$ _$$AuthState$FromJson(Map<String, dynamic> json) => _$AuthState$(
-      user: json['user'] == null
-          ? null
-          : AppUser.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] == null ? null : AppUser.fromJson(json['user'] as Map<String, dynamic>),
+      cart: json['cart'] == null ? const Cart() : Cart.fromJson(json['cart'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$AuthState$ToJson(_$AuthState$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$AuthState$ToJson(_$AuthState$ instance) => <String, dynamic>{
       'user': instance.user,
+      'cart': instance.cart,
+    };
+
+_$Cart$ _$$Cart$FromJson(Map<String, dynamic> json) => _$Cart$(
+      items: (json['items'] as List<dynamic>?)?.map((e) => CartItem.fromJson(e as Map<String, dynamic>)).toList() ??
+          const <CartItem>[],
+    );
+
+Map<String, dynamic> _$$Cart$ToJson(_$Cart$ instance) => <String, dynamic>{
+      'items': instance.items,
+    };
+
+_$CartItem$ _$$CartItem$FromJson(Map<String, dynamic> json) => _$CartItem$(
+      productId: json['productId'] as String,
+      quantity: json['quantity'] as int,
+    );
+
+Map<String, dynamic> _$$CartItem$ToJson(_$CartItem$ instance) => <String, dynamic>{
+      'productId': instance.productId,
+      'quantity': instance.quantity,
     };
 
 _$AppState$ _$$AppState$FromJson(Map<String, dynamic> json) => _$AppState$(
-      auth: json['auth'] == null
-          ? const AuthState()
-          : AuthState.fromJson(json['auth'] as Map<String, dynamic>),
+      auth: json['auth'] == null ? const AuthState() : AuthState.fromJson(json['auth'] as Map<String, dynamic>),
       products: json['products'] == null
           ? const ProductsState()
           : ProductsState.fromJson(json['products'] as Map<String, dynamic>),
-      pendingActions: (json['pendingActions'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toSet() ??
-          const <String>{},
+      pendingActions: (json['pendingActions'] as List<dynamic>?)?.map((e) => e as String).toSet() ?? const <String>{},
     );
 
-Map<String, dynamic> _$$AppState$ToJson(_$AppState$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$AppState$ToJson(_$AppState$ instance) => <String, dynamic>{
       'auth': instance.auth,
       'products': instance.products,
       'pendingActions': instance.pendingActions.toList(),
     };
 
-_$ProductsState$ _$$ProductsState$FromJson(Map<String, dynamic> json) =>
-    _$ProductsState$(
-      products: (json['products'] as List<dynamic>?)
-              ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <Product>[],
-      vendors: (json['vendors'] as List<dynamic>?)
-              ?.map((e) => Vendor.fromJson(e as Map<String, dynamic>))
-              .toList() ??
+_$ProductsState$ _$$ProductsState$FromJson(Map<String, dynamic> json) => _$ProductsState$(
+      products: (json['products'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, Product.fromJson(e as Map<String, dynamic>)),
+          ) ??
+          const <String, Product>{},
+      productIds: (json['productIds'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const <String>[],
+      vendors: (json['vendors'] as List<dynamic>?)?.map((e) => Vendor.fromJson(e as Map<String, dynamic>)).toList() ??
           const <Vendor>[],
-      categories: (json['categories'] as List<dynamic>?)
-              ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <Category>[],
+      categories:
+          (json['categories'] as List<dynamic>?)?.map((e) => Category.fromJson(e as Map<String, dynamic>)).toList() ??
+              const <Category>[],
       selectedCategoryId: json['selectedCategoryId'] as String?,
+      selectedProductId: json['selectedProductId'] as String?,
     );
 
-Map<String, dynamic> _$$ProductsState$ToJson(_$ProductsState$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$ProductsState$ToJson(_$ProductsState$ instance) => <String, dynamic>{
       'products': instance.products,
+      'productIds': instance.productIds,
       'vendors': instance.vendors,
       'categories': instance.categories,
       'selectedCategoryId': instance.selectedCategoryId,
+      'selectedProductId': instance.selectedProductId,
     };
 
 _$Product$ _$$Product$FromJson(Map<String, dynamic> json) => _$Product$(
@@ -87,8 +97,7 @@ _$Product$ _$$Product$FromJson(Map<String, dynamic> json) => _$Product$(
       vendorId: json['vendorId'] as String,
     );
 
-Map<String, dynamic> _$$Product$ToJson(_$Product$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$Product$ToJson(_$Product$ instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
@@ -104,8 +113,7 @@ _$Category$ _$$Category$FromJson(Map<String, dynamic> json) => _$Category$(
       icon: json['icon'] as int,
     );
 
-Map<String, dynamic> _$$Category$ToJson(_$Category$ instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$Category$ToJson(_$Category$ instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'icon': instance.icon,

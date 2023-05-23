@@ -13,18 +13,14 @@ class LoginUser with _$LoginUser {
   }) = LoginUserStart;
 
   @Implements<StopAction>()
-  @Implements<UserAction>()
-  const factory LoginUser.successful(
-      AppUser user, [
-        @Default(_kLoginUserPendingId) String pendingId
-      ]) = LoginUserSuccessful;
+  const factory LoginUser.successful([@Default(_kLoginUserPendingId) String pendingId]) = LoginUserSuccessful;
 
   @Implements<StopAction>()
   const factory LoginUser.error(
-      Object error,
-      StackTrace stackTrace, [
-        @Default(_kLoginUserPendingId) String pendingId,
-      ]) = LoginUserError;
+    Object error,
+    StackTrace stackTrace, [
+    @Default(_kLoginUserPendingId) String pendingId,
+  ]) = LoginUserError;
 
   static String get pendingKey => _kLoginUserPendingId;
 }

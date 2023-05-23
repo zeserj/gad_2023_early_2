@@ -10,7 +10,7 @@ class Product with _$Product {
     required double price,
     required String categoryId,
     required String vendorId,
-}) = Product$;
+  }) = Product$;
 
   factory Product.fromJson(Map<dynamic, dynamic> json) => _$ProductFromJson(Map<String, dynamic>.from(json));
 }

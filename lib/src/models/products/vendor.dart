@@ -7,7 +7,7 @@ class Vendor with _$Vendor {
     required String name,
     required String image,
     required String description,
-}) = Vendor$;
+  }) = Vendor$;
 
   factory Vendor.fromJson(Map<dynamic, dynamic> json) => _$VendorFromJson(Map<String, dynamic>.from(json));
 }

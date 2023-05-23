@@ -1,4 +1,9 @@
-part of 'containers/index.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+import '../actions/index.dart';
+import '../models/index.dart';
+import 'containers/index.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,8 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   void _onResult(dynamic action) {
     if (action is LoginUserSuccessful) {
       Navigator.pushReplacementNamed(context, '/');
-    }
-    else if (action is LoginUserError) {
+    } else if (action is LoginUserError) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('${action.error}'),
         duration: const Duration(seconds: 5),
@@ -70,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Center(
                       child: CircularProgressIndicator(),
                     )
-                  else ...<Widget> [
+                  else ...<Widget>[
                     ElevatedButton(
                       onPressed: _onNext,
                       child: const Text('Login'),
@@ -90,6 +94,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-
 }
