@@ -5,4 +5,4 @@ There are different categories for products, products have been generated random
 
 The app is using Firebase for authentication and storing data and Redux for state management.
 
-<img src=https://github.com/zeserj/flutter_course/raw/main/images/presentation/commerce.gif alt="Commerce App GIF" width="40%" height="40%">
+<img src=https://github.com/zeserj/gad_2023_early_2/raw/main/images/presentation/commerce.gif alt="Commerce App GIF" width="40%" height="40%">
